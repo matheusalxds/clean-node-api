@@ -12,3 +12,9 @@
 
 <h2>Good practices</h2>
 [Commits](https://www.conventionalcommits.org/en/v1.0.0/) we're gonna follow this convention.
+
+
+<h3>Comments</h3>
+We should commit first the production file first using
+<bold>feat: ...</bold> and for test file
+<bold>test: ...</bold>
