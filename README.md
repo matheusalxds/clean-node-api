@@ -1,20 +1,64 @@
-<h1>Clean Architecture</h1>
+> # Clean Architecture
+![alt text](./public/logo.png "Link para o treinamento")
 
-<h2>Principles</h2>
+> ## Principles
+* Single Responsibility Principle (SRP)
+* Open Closed Principle (OCP)
+* Liskov Substitution Principle (LSP)
+* Interface Segregation Principle (ISP)
+* Dependency Inversion Principle (DIP)
+* Don't Repeat Yourself (DRY)
+* You Aren't Gonna Need It (YAGNI)
+* Keep It Simple, Silly (KISS)
+* Composition Over Inheritance
+* Small Commits
 
-<h2>Design Patterns</h2>
+> ## Design Patterns
+* Factory
+* Adapter
+* Composite
+* Decorator
+* Proxy
+* Dependency Injection
+* Abstract Server
+* Composition Root
+* Builder
 
-<h2>Methodologies and Designs</h2>
+> ## Methodologies and Designs
 
-<h2>Libs and Tools</h2>
-[git-commit-msg-linter](https://www.npmjs.com/package/git-commit-msg-linter) - To force us to respect the rules of commit convention.
-[eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript) - It's necessary to use lint and Typescript.
+> ## Libs and Tools
+* NPM
+* Typescript
+* Git
+* Docker
+* Jest
+* MongoDb
+* Travis CI
+* Swagger
+* Bcrypt
+* JsonWebToken
+* Faker
+* Coveralls
+* Validator
+* Express
+* Supertest
+* Husky
+* Lint Staged
+* Eslint
+* Standard Javascript Style
+* Sucrase
+* Nodemon
+* Rimraf
+* In-Memory MongoDb Server
+* MockDate
+* Module-Alias
+* [git-commit-msg-linter](https://www.npmjs.com/package/git-commit-msg-linter) - To force us to respect the rules of commit convention.
+* [eslint-config-standard-with-typescript](https://github.com/standard/eslint-config-standard-with-typescript) - It's necessary to use lint and Typescript.
 
-<h2>Good practices</h2>
+> ## Good practices
 [Commits](https://www.conventionalcommits.org/en/v1.0.0/) we're gonna follow this convention.
 
-
-<h3>Comments</h3>
+> ### Comments
 We should commit first the production file first using
-<bold>feat: ...</bold> and for test file
-<bold>test: ...</bold>
+**feat: ...** and for test file
+**test: ...**
