@@ -1,5 +1,5 @@
 > # Clean Architecture
-![alt text](./public/logo.png "Link para o treinamento")
+![alt text](./public/logo.png "Clean Architecture")
 
 > ## Principles
 * Single Responsibility Principle (SRP)
