@@ -62,3 +62,10 @@
 We should commit first the production file first using
 **feat: ...** and for test file
 **test: ...**
+
+> ### Tests
+- We must create SUT (create factory).
+- We must guarantee the integration between components (DI)
+- We must return error if some integration return false
+(some DI return error)
+
