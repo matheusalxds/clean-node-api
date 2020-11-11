@@ -1,5 +1,5 @@
 // helpers
-import { badRequest, serverError, ok } from '../../helpers/http-helper'
+import { badRequest, serverError, ok } from '../../helpers/http/http-helper'
 
 // protocols
 import { HttpResponse, HttpRequest, Controller, AddAccount } from './signup-protocols'
