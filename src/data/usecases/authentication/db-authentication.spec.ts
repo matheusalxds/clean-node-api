@@ -4,7 +4,7 @@ import {
   AuthenticationModel,
   LoadAccountByEmailRepository,
   HashComparer,
-  Encryter,
+  Encrypter,
   UpdateAccessTokenRepository
 } from './db-authentication-protocols'
 
@@ -40,8 +40,8 @@ const makeHashComparer = (): HashComparer => {
   return new HashComparerStub()
 }
 
-const makeEncrypter = (): Encryter => {
-  class EncrypterStub implements Encryter {
+const makeEncrypter = (): Encrypter => {
+  class EncrypterStub implements Encrypter {
     async encrypt (id: string): Promise<string> {
       return new Promise((resolve) => resolve('any_token'))
     }
@@ -64,7 +64,7 @@ interface SutTypes {
   sut: DbAuthentication
   loadAccountByEmailRepositoryStub: LoadAccountByEmailRepository
   hashComparerStub: HashComparer
-  encrypterStub: Encryter
+  encrypterStub: Encrypter
   updateAccessTokenRepositoryStub: UpdateAccessTokenRepository
 }
 
