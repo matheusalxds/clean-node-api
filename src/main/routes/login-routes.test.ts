@@ -33,6 +33,7 @@ describe('Login Routes Middleware', () => {
         .expect(200)
     })
   })
+
   describe('POST /login', () => {
     test('should return 200 on login', async () => {
       const password = await hash('123', 12)
@@ -48,6 +49,16 @@ describe('Login Routes Middleware', () => {
           password: '123'
         })
         .expect(200)
+    })
+
+    test('should return 401 on login', async () => {
+      await request(app)
+        .post('/api/login')
+        .send({
+          email: 'matheus.alexandre@gmail.com',
+          password: '123'
+        })
+        .expect(401)
     })
   })
 })
