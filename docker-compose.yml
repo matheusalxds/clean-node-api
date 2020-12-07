@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  mongo:
+    container_name: mongo-container
+    image: mongo:3
+    restart: always # restart the mongo if it falls
+    volumes: # say where the data is going to be saved
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  api: # we can use our Dockerfile, so we must use "build"
+    container_name: api-container
+    build: .
+    image: clean-node-api
+    restart: always
+    command: npm start
+    volumes:
+      - ./dist:/usr/src/clean-node-api/dist
+    ports:
+      - "5050:5050"
+    links:
+      - mongo
+``
