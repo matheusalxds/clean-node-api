@@ -4,5 +4,6 @@ dist
 coverage
 .DS_Store
 data
+!src/data
 
 globalConfig.json
