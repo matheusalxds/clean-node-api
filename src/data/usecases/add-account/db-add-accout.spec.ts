@@ -83,7 +83,7 @@ describe('DbAddAccout UserCase', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should call AddAccountRepostory with correct values', async () => {
+  test('should call AddAccountRepository with correct values', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
     const addSpy = jest.spyOn(addAccountRepositoryStub, 'add')
 
@@ -95,7 +95,7 @@ describe('DbAddAccout UserCase', () => {
     })
   })
 
-  test('should throw if Hasher throws', async () => {
+  test('should throw if addAccountRepositoryStub throws', async () => {
     const { sut, addAccountRepositoryStub } = makeSut()
     jest.spyOn(addAccountRepositoryStub, 'add')
       .mockReturnValueOnce(new Promise((resolve, reject) =>
