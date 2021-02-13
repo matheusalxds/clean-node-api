@@ -1,3 +1,6 @@
+
+[![Build Status](https://travis-ci.org/matheusalxds/clean-node-api.svg?branch=master)](https://travis-ci.org/matheusalxds/clean-node-api)
+[![Coverage Status](https://coveralls.io/repos/github/matheusalxds/clean-node-api/badge.svg)](https://coveralls.io/github/matheusalxds/clean-node-api)
 > # Clean Architecture
 ![alt text](./public/logo.png "Clean Architecture")
 
