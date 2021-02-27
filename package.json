@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node dist/main/server.js",
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf dist && tsc -p tsconfig-build.json",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "dev:local": "sucrase-node src/main/server.ts",
     "check": "npm-check -s -u",
@@ -55,11 +55,15 @@
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "module-alias": "^2.2.2",
     "mongodb": "^3.6.3",
     "nodemon": "^2.0.7",
     "validator": "^13.5.2"
   },
   "engines": {
     "node": "14.x"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }
