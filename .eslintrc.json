@@ -7,6 +7,7 @@
     "@typescript-eslint/strict-boolean-expressions": 0,
     "@typescript-eslint/return-await": 0,
     "@typescript-eslint/space-before-function-paren": "error",
-    "@typescript-eslint/no-misused-promises": 0
+    "@typescript-eslint/no-misused-promises": 0,
+    "@typescript-eslint/consistent-type-definitions": 0
   }
 }
