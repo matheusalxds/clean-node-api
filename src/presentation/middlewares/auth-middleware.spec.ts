@@ -1,5 +1,5 @@
-import { AccountModel } from '@/domain/models/account'
-import { LoadAccountByToken } from '@/domain/usecases/load-account-by-token'
+import { AccountModel } from '@/domain/models/account/account'
+import { LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
 import { HttpRequest } from '@/presentation/protocols'
 import { AuthMiddleware } from '@/presentation/middlewares/auth-middleware'
 import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
