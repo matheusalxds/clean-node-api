@@ -11,7 +11,7 @@
     "check": "npm-check -s -u",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
-    "test": "jest --passWithNoTests --silent --runInBand",
+    "test": "jest --passWithNoTests --runInBand",
     "jest:clearCache": "jest --clearCache",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test -- --watch -c jest-unit-config.js",
