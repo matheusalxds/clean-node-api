@@ -9,7 +9,7 @@ import mockDate from 'mockdate'
 const makeFakeSurveyResultData = (): SaveSurveyResultModel => ({
   accountId: 'any_accoun_id',
   surveyId: 'any_survey_id',
-  answers: 'any_answer',
+  answer: 'any_answer',
   date: new Date()
 })
 
