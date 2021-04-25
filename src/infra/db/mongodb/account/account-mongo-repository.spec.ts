@@ -1,5 +1,6 @@
 import { MongoHelper } from '../helpers/mongo-helper'
 import { AccountMongoRepository } from './account-mongo-repository'
+import { mockAddAccountParams } from '@/domain/test'
 import { Collection } from 'mongodb'
 
 let accountCollection: Collection
@@ -25,15 +26,11 @@ describe('Account Mongo Repository', () => {
   describe('add()', () => {
     test('should return an account on add success', async () => {
       const sut = makeSut()
-      const account = await sut.add({
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password'
-      })
+      const account = await sut.add(mockAddAccountParams())
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
       expect(account.name).toBe('any_name')
-      expect(account.email).toBe('any_email')
+      expect(account.email).toBe('any_email@mail.com')
       expect(account.password).toBe('any_password')
     })
   })
@@ -41,16 +38,12 @@ describe('Account Mongo Repository', () => {
   describe('loadByEmail()', () => {
     test('should return an account on loadByEmail success', async () => {
       const sut = makeSut()
-      await accountCollection.insertOne({
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password'
-      })
-      const account = await sut.loadByEmail('any_email')
+      await accountCollection.insertOne(mockAddAccountParams())
+      const account = await sut.loadByEmail('any_email@mail.com')
       expect(account).toBeTruthy()
       expect(account.id).toBeTruthy()
       expect(account.name).toBe('any_name')
-      expect(account.email).toBe('any_email')
+      expect(account.email).toBe('any_email@mail.com')
       expect(account.password).toBe('any_password')
     })
 
@@ -64,11 +57,7 @@ describe('Account Mongo Repository', () => {
   describe('updatedAccessToken()', () => {
     test('should update the account accessToken on updatedAccessToken success', async () => {
       const sut = makeSut()
-      const res = await accountCollection.insertOne({
-        name: 'any_name',
-        email: 'any_email',
-        password: 'any_password'
-      })
+      const res = await accountCollection.insertOne(mockAddAccountParams())
       const fakeAccount = res.ops[0]
       expect(fakeAccount.accessToken).toBeFalsy()
       await sut.updateAccessToken(fakeAccount._id, 'any_token')
