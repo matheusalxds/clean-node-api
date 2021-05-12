@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rm -rf dist && tsc -p tsconfig-build.json",
+    "build:watch": "rm -rf dist && tsc -p tsconfig-build.json -w",
     "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
     "dev:local": "sucrase-node src/main/server.ts",
     "check": "npm-check -s -u",
