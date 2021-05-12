@@ -72,3 +72,10 @@ We should commit first the production file first using
 - We must return error if some integration return false
 (some DI return error)
 
+> ### Regex
+````
+new Promise\(resolve => resolve\((.*)\)\)
+
+\ => gets what has inside of first sentense
+.* => gets 0 or more things
+````
