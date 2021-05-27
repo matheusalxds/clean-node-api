@@ -1,33 +1,28 @@
 import { SaveSurveyResultRepository } from '@/data/protocols/db/survey-result/save-survey-result-repository'
-import { SaveSurveyResultParams } from '@/domain/usecases/survey-results/save-survey-result'
+import { MongoHelper, QueryBuilder } from '../helpers'
 import { SurveyResultModel } from '@/domain/models/survey-result/survey-result'
-import { MongoHelper, QueryBuilder } from '@/infra/db/mongodb/helpers'
+import { SaveSurveyResultParams } from '@/domain/usecases/survey-results/save-survey-result'
 import { ObjectId } from 'mongodb'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
   async save (data: SaveSurveyResultParams): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
-    await surveyResultCollection.findOneAndUpdate(
-      {
-        surveyId: new ObjectId(data.surveyId),
-        accountId: new ObjectId(data.accountId)
-      },
-      {
-        $set: {
-          answer: data.answer,
-          date: data.date
-        }
-      },
-      {
-        upsert: true
+    await surveyResultCollection.findOneAndUpdate({
+      surveyId: new ObjectId(data.surveyId),
+      accountId: new ObjectId(data.accountId)
+    }, {
+      $set: {
+        answer: data.answer,
+        date: data.date
       }
-    )
-
+    }, {
+      upsert: true
+    })
     const surveyResult = await this.loadBySurveyId(data.surveyId)
     return surveyResult
   }
 
-  async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+  private async loadBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     const query = new QueryBuilder()
       .match({
@@ -38,7 +33,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
         data: {
           $push: '$$ROOT'
         },
-        total: {
+        count: {
           $sum: 1
         }
       })
@@ -59,131 +54,40 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
           surveyId: '$survey._id',
           question: '$survey.question',
           date: '$survey.date',
-          total: '$total',
-          answer: '$data.answer',
-          answers: '$survey.answers'
+          total: '$count',
+          answer: {
+            $filter: {
+              input: '$survey.answers',
+              as: 'item',
+              cond: {
+                $eq: ['$$item.answer', '$data.answer']
+              }
+            }
+          }
         },
         count: {
           $sum: 1
         }
       })
-      .project({
-        _id: 0,
-        surveyId: '$_id.surveyId',
-        question: '$_id.question',
-        date: '$_id.date',
-        answers: {
-          $map: {
-            input: '$_id.answers',
-            as: 'item',
-            in: {
-              $mergeObjects: ['$$item', {
-                count: {
-                  $cond: {
-                    if: {
-                      $eq: ['$$item.answer', '$_id.answer']
-                    },
-                    then: '$count',
-                    else: 0
-                  }
-                },
-                percent: {
-                  $cond: {
-                    if: {
-                      $eq: ['$$item.answer', '$_id.answer']
-                    },
-                    then: {
-                      $multiply: [{
-                        $divide: ['$count', '$_id.total']
-                      }, 100]
-                    },
-                    else: 0
-                  }
-                },
-                isCurrentAccountAnswerCount: {
-                  $cond: [{
-                    $eq: ['$$item.answer', {
-                      $arrayElemAt: ['$currentAccountAnswer', 0]
-                    }]
-                  }, 1, 0]
-                }
-              }]
-            }
-          }
-        }
-      })
-      .group({
-        _id: {
-          surveyId: '$surveyId',
-          question: '$question',
-          date: '$date'
-        },
-        answers: {
-          $push: '$answers'
-        }
-      })
-      .project({
-        _id: 0,
-        surveyId: '$_id.surveyId',
-        question: '$_id.question',
-        date: '$_id.date',
-        answers: {
-          $reduce: {
-            input: '$answers',
-            initialValue: [],
-            in: {
-              $concatArrays: ['$$value', '$$this']
-            }
-          }
-        }
-      })
       .unwind({
-        path: '$answers'
+        path: '$_id.answer'
+      })
+      .addFields({
+        '_id.answer.count': '$count',
+        '_id.answer.percent': {
+          $multiply: [{
+            $divide: ['$count', '$_id.total']
+          }, 100]
+        }
       })
       .group({
         _id: {
-          surveyId: '$surveyId',
-          question: '$question',
-          date: '$date',
-          answer: '$answers.answer',
-          image: '$answers.image'
-        },
-        count: {
-          $sum: '$answers.count'
-        },
-        percent: {
-          $sum: '$answers.percent'
-        },
-        isCurrentAccountAnswerCount: {
-          $sum: '$answers.isCurrentAccountAnswerCount'
-        }
-      })
-      .project({
-        _id: 0,
-        surveyId: '$_id.surveyId',
-        question: '$_id.question',
-        date: '$_id.date',
-        answer: {
-          answer: '$_id.answer',
-          image: '$_id.image',
-          count: '$count',
-          percent: '$percent',
-          isCurrentAccountAnswer: {
-            $eq: ['$isCurrentAccountAnswerCount', 1]
-          }
-        }
-      })
-      .sort({
-        'answer.count': -1
-      })
-      .group({
-        _id: {
-          surveyId: '$surveyId',
-          question: '$question',
-          date: '$date'
+          surveyId: '$_id.surveyId',
+          question: '$_id.question',
+          date: '$_id.date'
         },
         answers: {
-          $push: '$answer'
+          $push: '$_id.answer'
         }
       })
       .project({
@@ -195,6 +99,6 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
       })
       .build()
     const surveyResult = await surveyResultCollection.aggregate(query).toArray()
-    return surveyResult.length ? surveyResult[0] : null
+    return surveyResult?.length ? surveyResult[0] : null
   }
 }
