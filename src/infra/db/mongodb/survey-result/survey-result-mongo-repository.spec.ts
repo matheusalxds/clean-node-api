@@ -3,6 +3,7 @@ import { MongoHelper } from '../helpers/mongo-helper'
 import { Collection, ObjectId } from 'mongodb'
 import { SurveyModel } from '@/domain/models/survey/survey'
 import { AccountModel } from '@/domain/models/account/account'
+import mockDate from 'mockdate'
 
 let surveyCollection: Collection
 let surveyResultCollection: Collection
@@ -100,6 +101,14 @@ describe('Survey Mongo Repository', () => {
   })
 
   describe('loadBySurveyId()', () => {
+    beforeAll(() => {
+      mockDate.set(new Date())
+    })
+
+    afterAll(() => {
+      mockDate.reset()
+    })
+
     test('Should load survey result', async () => {
       const survey = await makeSurvey()
       const account = await makeAccount()
