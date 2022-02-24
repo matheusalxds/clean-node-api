@@ -3,7 +3,8 @@ import { AddSurvey } from '@/domain/usecases/survey/add-survey'
 import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper'
 import { AddSurveyController } from '@/presentation/controllers/survey/add-survey/add-survey-controller'
 import { throwError } from '@/domain/test'
-import { mockSurvey, mockValidation } from '@/presentation/test'
+import { AddSurveySpy, mockValidation } from '@/presentation/test'
+
 import mockDate from 'mockdate'
 
 const mockRequest = (): HttpRequest => ({
@@ -25,7 +26,7 @@ type SutTypes = {
 
 const makeSut = (): SutTypes => {
   const validationStub = mockValidation()
-  const addSurveyStub = mockSurvey()
+  const addSurveyStub = new AddSurveySpy()
   const sut = new AddSurveyController(validationStub, addSurveyStub)
 
   return {

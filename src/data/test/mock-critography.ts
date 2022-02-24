@@ -24,7 +24,7 @@ export const mockDecrypter = (): Decrypter => {
 }
 
 export class EncrypterStub implements Encrypter {
-  ciphertext = faker.random.uuid()
+  ciphertext = faker.datatype.uuid()
   plaintext: string
 
   async encrypt (plaintext: string): Promise<string> {
