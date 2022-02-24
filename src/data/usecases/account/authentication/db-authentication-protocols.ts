@@ -1,4 +1,5 @@
-export * from '@/domain/models/account/account'
+export * from '@/domain/models'
+export * from '@/domain/models/authentication'
 export * from '@/domain/usecases/account/authentication'
 export * from '@/data/protocols/db/account/load-account-by-email-repository'
 export * from '@/data/protocols/critography/hash-comparer'

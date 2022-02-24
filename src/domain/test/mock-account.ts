@@ -1,4 +1,4 @@
-import { AccountModel } from '@/domain/models/account/account'
+import { AccountModel } from '@/domain/models'
 import { AddAccountParams } from '@/domain/usecases/account/add-account'
 import { AuthenticationParams } from '@/domain/usecases/account/authentication'
 

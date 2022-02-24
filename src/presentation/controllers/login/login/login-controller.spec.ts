@@ -53,10 +53,10 @@ describe('Login Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('should return 200 if valid credentials are provide', async () => {
+  test('should return 200 if valid credentials are provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok('any_token'))
   })
 
   test('should call Validation with correct value', async () => {

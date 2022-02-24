@@ -23,14 +23,14 @@ export const mockDecrypter = (): Decrypter => {
   return new DecrypterStub()
 }
 
-export const mockEncrypter = (): Encrypter => {
-  class EncrypterStub implements Encrypter {
-    async encrypt (id: string): Promise<string> {
-      return Promise.resolve('any_token')
-    }
-  }
+export class EncrypterStub implements Encrypter {
+  ciphertext = faker.random.uuid()
+  plaintext: string
 
-  return new EncrypterStub()
+  async encrypt (plaintext: string): Promise<string> {
+    this.plaintext = plaintext
+    return this.ciphertext
+  }
 }
 
 export const mockHashComparer = (): HashComparer => {
