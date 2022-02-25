@@ -9,6 +9,8 @@
     "@typescript-eslint/space-before-function-paren": "error",
     "@typescript-eslint/no-misused-promises": 0,
     "@typescript-eslint/consistent-type-definitions": 0,
-    "@typescript-eslint/restrict-template-expressions": 0
+    "@typescript-eslint/restrict-template-expressions": 0,
+    "@typescript-eslint/no-namespace": 0,
+    "import/export": 0
   }
 }

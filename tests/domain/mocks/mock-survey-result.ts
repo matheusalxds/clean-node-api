@@ -1,4 +1,4 @@
-import { SaveSurveyResultParams, LoadSurveyResult } from '@/domain/usecases/survey'
+import { LoadSurveyResult, SaveSurveyResult } from '@/domain/usecases/survey'
 import { SurveyResultModel } from '@/domain/models'
 
 export const mockSurveyResultModel = (): SurveyResultModel => ({
@@ -18,7 +18,7 @@ export const mockSurveyResultModel = (): SurveyResultModel => ({
   date: new Date()
 })
 
-export const mockSaveSurveyResultParams = (): SaveSurveyResultParams => ({
+export const mockSaveSurveyResultParams = (): SaveSurveyResult.Params => ({
   accountId: 'any_account_id',
   surveyId: 'any_survey_id',
   answer: 'any_answer',

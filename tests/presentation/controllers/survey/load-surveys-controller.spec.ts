@@ -4,9 +4,7 @@ import { noContent, ok, serverError } from '@/presentation/helpers/http/http-hel
 import { LoadSurveysSpy } from '../../mocks'
 import { mockSurveyModels, throwError } from '@/tests/domain/mocks'
 import mockDate from 'mockdate'
-
 import faker from 'faker'
-import { HttpRequest } from '@/presentation/protocols'
 
 type SutTypes = {
   sut: LoadSurveysController
@@ -23,7 +21,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const mockRequest = (): HttpRequest => ({ accountId: faker.datatype.uuid() })
+const mockRequest = (): LoadSurveysController.Request => ({ accountId: faker.datatype.uuid() })
 
 describe('LoadSurveys Controller', () => {
   beforeAll(() => {
@@ -58,7 +56,7 @@ describe('LoadSurveys Controller', () => {
   test('should return 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveysStub } = makeSut()
     jest.spyOn(loadSurveysStub, 'load').mockImplementationOnce(throwError)
-    const httpResponse = await sut.handle({})
+    const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 })

@@ -1,15 +1,12 @@
 import { LoadAccountByToken } from '@/domain/usecases/account/load-account-by-token'
-import { HttpRequest } from '@/presentation/protocols'
 import { AuthMiddleware } from '@/presentation/middlewares/auth-middleware'
 import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { AccessDeniedError } from '@/presentation/errors'
 import { throwError } from '../../domain/mocks'
 import { mockLoadAccountByToken } from '../mocks'
 
-const mockRequest = (): HttpRequest => ({
-  headers: {
-    'x-access-token': 'any_token'
-  }
+const mockRequest = (): AuthMiddleware.Request => ({
+  accessToken: 'any_token'
 })
 
 type SutTypes = {
