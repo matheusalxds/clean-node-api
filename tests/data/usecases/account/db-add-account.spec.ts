@@ -56,10 +56,10 @@ describe('DbAddAccount UserCase', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  test('should return an account on success', async () => {
+  test('should return true on success', async () => {
     const { sut } = makeSut()
     const account = await sut.add(mockAddAccountParams())
-    expect(account).toEqual(mockAccountModel())
+    expect(account).toBe(true)
   })
 
   test('should return null if LoadAccountByEmailRepository not return null', async () => {

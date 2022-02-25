@@ -3,13 +3,10 @@ import { AccountModel } from '@/domain/models'
 import { Authentication } from '@/domain/usecases/account/authentication'
 import { mockAccountModel } from '@/tests/domain/mocks'
 
-export const mockAccount = (): AddAccount => {
-  class AddAccountStub implements AddAccount {
-    async add (account: AddAccount.Params): Promise<AccountModel> {
-      return await Promise.resolve(mockAccountModel())
-    }
+export class AddAccountStub implements AddAccount {
+  async add (account: AddAccount.Params): Promise<AddAccount.Model> {
+    return Promise.resolve(true)
   }
-  return new AddAccountStub()
 }
 
 export const mockAuthentication = (): Authentication => {

@@ -15,10 +15,15 @@ const makeAccessToken = async (): Promise<string> => {
     password: '123',
     role: 'admin'
   })
-  const id = res.ops[0]._id
+  const id = res.insertedId.toHexString()
   const accessToken = sign({ id }, env.jwtSecret)
-  await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
-
+  await accountCollection.updateOne({
+    _id: res.insertedId
+  }, {
+    $set: {
+      accessToken
+    }
+  })
   return accessToken
 }
 

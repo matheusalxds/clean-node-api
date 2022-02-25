@@ -1,11 +1,10 @@
-import { AddAccount } from '@/domain/usecases/account/add-account'
-import { Authentication } from '@/domain/usecases/account/authentication'
+import { AddAccount, Authentication } from '@/domain/usecases/account'
 import { Validation } from '@/presentation/protocols'
 import { badRequest, forbidden, ok, serverError } from '@/presentation/helpers/http'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
-import { SignUpController } from '@/presentation/controllers/login/signup-controller'
+import { SignUpController } from '@/presentation/controllers/login'
 import { throwError } from '@/tests/domain/mocks'
-import { mockAccount, mockAuthentication, mockValidation } from '../../mocks'
+import { AddAccountStub, mockAuthentication, mockValidation } from '../../mocks'
 
 const mockRequest = (): SignUpController.Request => ({
   name: 'any_name',
@@ -24,7 +23,7 @@ type SutTypes = {
 // SYSTEM UNDER TEST = sut
 const makeSut = (): SutTypes => {
   const authenticationStub = mockAuthentication()
-  const addAccountStub = mockAccount()
+  const addAccountStub = new AddAccountStub()
   const validationStub = mockValidation()
   const sut = new SignUpController(addAccountStub, validationStub, authenticationStub)
   return {

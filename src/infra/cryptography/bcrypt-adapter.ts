@@ -1,4 +1,4 @@
-import { Hasher, HashComparer } from '@/data/protocols/critography'
+import { Hasher, HashComparer } from '@/data/protocols/cryptography'
 
 import bcrypt from 'bcrypt'
 
@@ -6,12 +6,10 @@ export class BcryptAdapter implements Hasher, HashComparer {
   constructor (private readonly salt: number) {}
 
   async hash (value: string): Promise<Hasher.Modal> {
-    const hash = await bcrypt.hash(value, this.salt)
-    return hash
+    return bcrypt.hash(value, this.salt)
   }
 
-  async compare (value: string, hash: string): Promise<HashComparer.Modal> {
-    const isValid = await bcrypt.compare(value, hash)
-    return isValid
+  async compare (plaintext: string, digest: string): Promise<HashComparer.Modal> {
+    return bcrypt.compare(plaintext, digest)
   }
 }

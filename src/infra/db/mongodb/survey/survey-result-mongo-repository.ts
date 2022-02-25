@@ -4,17 +4,18 @@ import { MongoHelper, QueryBuilder } from '@/infra/db/mongodb/helpers'
 
 import { ObjectId } from 'mongodb'
 import round from 'mongo-round'
+import { SurveyResultModel } from '@/domain/models'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
-  async save (data: SaveSurveyResult.Params): Promise<void> {
+  async save ({ surveyId, answer, accountId, date }: SaveSurveyResult.Params): Promise<void> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     await surveyResultCollection.findOneAndUpdate({
-      surveyId: new ObjectId(data.surveyId),
-      accountId: new ObjectId(data.accountId)
+      surveyId: new ObjectId(surveyId),
+      accountId: new ObjectId(accountId)
     }, {
       $set: {
-        answer: data.answer,
-        date: data.date
+        answer,
+        date
       }
     }, {
       upsert: true
@@ -193,7 +194,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
         answers: '$answers'
       })
       .build()
-    const surveyResult = await surveyResultCollection.aggregate(query).toArray()
+    const surveyResult = await surveyResultCollection.aggregate<SurveyResultModel>(query).toArray()
     return surveyResult.length ? surveyResult[0] : null
   }
 }

@@ -26,12 +26,8 @@ describe('Account Mongo Repository', () => {
   describe('add()', () => {
     test('should return an account on add success', async () => {
       const sut = makeSut()
-      const account = await sut.add(mockAddAccountParams())
-      expect(account).toBeTruthy()
-      expect(account.id).toBeTruthy()
-      expect(account.name).toBe('any_name')
-      expect(account.email).toBe('any_email@mail.com')
-      expect(account.password).toBe('any_password')
+      const isValid = await sut.add(mockAddAccountParams())
+      expect(isValid).toBeTruthy()
     })
   })
 
@@ -54,16 +50,17 @@ describe('Account Mongo Repository', () => {
     })
   })
 
-  describe('updatedAccessToken()', () => {
-    test('should update the account accessToken on updatedAccessToken success', async () => {
+  describe('updateAccessToken()', () => {
+    test('Should update the account accessToken on success', async () => {
       const sut = makeSut()
       const res = await accountCollection.insertOne(mockAddAccountParams())
-      const fakeAccount = res.ops[0]
+      const fakeAccount = await accountCollection.findOne({ _id: res.insertedId })
       expect(fakeAccount.accessToken).toBeFalsy()
-      await sut.updateAccessToken(fakeAccount._id, 'any_token')
+      const accessToken = 'any_access_token'
+      await sut.updateAccessToken(fakeAccount._id.toString(), accessToken)
       const account = await accountCollection.findOne({ _id: fakeAccount._id })
       expect(account).toBeTruthy()
-      expect(account.accessToken).toBe('any_token')
+      expect(account.accessToken).toBe(accessToken)
     })
   })
 

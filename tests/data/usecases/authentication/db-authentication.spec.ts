@@ -1,7 +1,7 @@
 import { DbAuthentication } from '@/data/usecases/authentication'
 import { EncrypterStub, LoadAccountByEmailRepositorySpy, mockHashComparer, mockUpdateAccessTokenRepository } from '../../mocks'
 import { mockAuthenticationParams, throwError } from '@/tests/domain/mocks'
-import { HashComparer } from '@/data/protocols/critography'
+import { HashComparer } from '@/data/protocols/cryptography'
 import { UpdateAccessTokenRepository } from '@/data/protocols/db/account'
 
 type SutTypes = {

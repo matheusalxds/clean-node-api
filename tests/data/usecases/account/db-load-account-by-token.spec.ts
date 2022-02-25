@@ -3,7 +3,7 @@ import { mockAccountModel, throwError } from '@/tests/domain/mocks'
 import { mockDecrypter, mockLoadAccountByTokenRepositoryStub } from '../../mocks'
 import { LoadAccountByToken } from '@/domain/usecases/account'
 import { LoadAccountByTokenRepository } from '@/data/protocols/db/account'
-import { Decrypter } from '@/data/protocols/critography'
+import { Decrypter } from '@/data/protocols/cryptography'
 
 type SutTypes = {
   sut: LoadAccountByToken

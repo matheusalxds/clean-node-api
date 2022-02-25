@@ -6,5 +6,5 @@ export interface AddAccountRepository {
 
 export namespace AddAccountRepository {
   export type Params = Omit<AccountModel, 'id'>
-  export type Model = AccountModel
+  export type Model = boolean
 }

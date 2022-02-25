@@ -14,14 +14,19 @@ const makeAccessToken = async (): Promise<string> => {
     email: 'matheus.alxds@gmail.com',
     password: '123'
   })
-  const id = res.ops[0]._id
+  const id = res.insertedId.toHexString()
   const accessToken = sign({ id }, env.jwtSecret)
-  await accountCollection.updateOne({ _id: id }, { $set: { accessToken } })
-
+  await accountCollection.updateOne({
+    _id: res.insertedId
+  }, {
+    $set: {
+      accessToken
+    }
+  })
   return accessToken
 }
 
-describe('Survey Routes', () => {
+describe('Survey Results Routes', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
@@ -57,7 +62,7 @@ describe('Survey Routes', () => {
         date: new Date()
       })
       await request(app)
-        .put(`/api/surveys/${res.ops[0]._id}/results`)
+        .put(`/api/surveys/${res.insertedId.toHexString()}/results`)
         .set('x-access-token', accessToken)
         .send({
           answer: 'any_answer'
@@ -86,7 +91,7 @@ describe('Survey Routes', () => {
         date: new Date()
       })
       await request(app)
-        .get(`/api/surveys/${res.ops[0]._id}/results`)
+        .get(`/api/surveys/${res.insertedId.toHexString()}/results`)
         .set('x-access-token', accessToken)
         .expect(200)
     })

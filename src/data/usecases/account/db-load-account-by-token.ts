@@ -1,5 +1,5 @@
 import { LoadAccountByToken } from '@/domain/usecases/account'
-import { Decrypter } from '@/data/protocols/critography'
+import { Decrypter } from '@/data/protocols/cryptography'
 import { LoadAccountByTokenRepository } from '@/data/protocols/db/account'
 
 export class DbLoadAccountByToken implements LoadAccountByToken {
