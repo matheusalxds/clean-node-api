@@ -1,3 +1,3 @@
-import { json } from 'express'
+import { json, RequestHandler } from 'express'
 
-export const bodyParser = json()
+export const bodyParser = json() as RequestHandler
