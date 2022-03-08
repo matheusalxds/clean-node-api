@@ -1,4 +1,9 @@
-import { AddSurveyRepository, LoadSurveyByIdRepository, LoadSurveysRepository } from '@/data/protocols/db/survey'
+import {
+  AddSurveyRepository,
+  CheckSurveyByIdRepository,
+  LoadSurveyByIdRepository,
+  LoadSurveysRepository
+} from '@/data/protocols/db/survey'
 import { mockSurveyModel, mockSurveyModels } from '@/tests/domain/mocks'
 
 export class AddSurveyRepositorySpy implements AddSurveyRepository {
@@ -6,6 +11,16 @@ export class AddSurveyRepositorySpy implements AddSurveyRepository {
 
   async add (data: AddSurveyRepository.Params): Promise<void> {
     this.addSurveyParams = data
+  }
+}
+
+export class CheckSurveyByIdRepositorySpy implements CheckSurveyByIdRepository {
+  result = true
+  id: string
+
+  async checkById (id: string): Promise<CheckSurveyByIdRepository.Result> {
+    this.id = id
+    return this.result
   }
 }
 
