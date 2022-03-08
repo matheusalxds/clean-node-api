@@ -1,13 +1,11 @@
 import { AddAccountRepository, LoadAccountByEmailRepository, LoadAccountByTokenRepository, UpdateAccessTokenRepository } from '@/data/protocols/db/account'
 import { AddAccount } from '@/domain/usecases/account'
-import { AccountModel } from '@/domain/models'
 import { mockAccountModel } from '@/tests/domain/mocks'
 
 export class AddAccountRepositorySpy implements AddAccountRepository {
-  accountModel = mockAccountModel()
   addAccountParams: AddAccount.Params
 
-  async add (data: AddAccount.Params): Promise<AddAccountRepository.Model> {
+  async add (data: AddAccountRepository.Params): Promise<AddAccountRepository.Model> {
     this.addAccountParams = data
     return true
   }
@@ -17,7 +15,7 @@ export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailReposi
   accountModel = mockAccountModel()
   email: string
 
-  async loadByEmail (email: string): Promise<AccountModel> {
+  async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Model> {
     this.email = email
     return Promise.resolve(this.accountModel)
   }
@@ -25,7 +23,7 @@ export class LoadAccountByEmailRepositorySpy implements LoadAccountByEmailReposi
 
 export const mockLoadAccountByTokenRepositoryStub = (): LoadAccountByTokenRepository => {
   class LoadAccountByTokenRepositoryStub implements LoadAccountByTokenRepository {
-    async loadByToken (token: string, role?: string): Promise<AccountModel> {
+    async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Model> {
       return Promise.resolve(mockAccountModel())
     }
   }
