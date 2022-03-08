@@ -1,11 +1,10 @@
 import { LoadAnswersBySurvey } from '@/domain/usecases/survey'
-import { LoadSurveyByIdRepository } from '@/data/protocols/db/survey'
+import { LoadAnswersBySurveyRepository } from '@/data/protocols/db/survey'
 
 export class DbLoadAnswersBySurvey implements LoadAnswersBySurvey {
-  constructor (private readonly loadSurveyByIdRepository: LoadSurveyByIdRepository) {}
+  constructor (private readonly loadAnswersBySurveyRepository: LoadAnswersBySurveyRepository) {}
 
   async loadAnswers (id: string): Promise<LoadAnswersBySurvey.Result> {
-    const survey = await this.loadSurveyByIdRepository.loadById(id)
-    return survey?.answers.map(a => a.answer) || []
+    return this.loadAnswersBySurveyRepository.loadAnswers(id)
   }
 }
