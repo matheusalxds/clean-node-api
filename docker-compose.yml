@@ -9,19 +9,19 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
-  api: # we can use our Dockerfile, so we must use "build"
-    container_name: api-container
-    image: node:14
-    working_dir: /usr/src/clean-node-api
-    restart: always
-    command: bash -c "npm install --only=prod && npm run debug"
-    environment:
-      - MONGO_URL=mongodb://mongo:27017/clean-node-api
-    volumes:
-      - ./dist/:/usr/src/clean-node-api/dist/
-      - ./package.json:/usr/src/clean-node-api/package.json
-    ports:
-      - "5050:5050"
-      - "9222:9222"
-    links:
-      - mongo
+#  api: # we can use our Dockerfile, so we must use "build"
+#    container_name: api-container
+#    image: node:14
+#    working_dir: /usr/src/clean-node-api
+#    restart: always
+#    command: bash -c "npm install --only=prod && npm run debug"
+#    environment:
+#      - MONGO_URL=mongodb://mongo:27017/clean-node-api
+#    volumes:
+#      - ./dist/:/usr/src/clean-node-api/dist/
+#      - ./package.json:/usr/src/clean-node-api/package.json
+#    ports:
+#      - "5050:5050"
+#      - "9222:9222"
+#    links:
+#      - mongo

@@ -8,7 +8,7 @@ import express from 'express'
 const app = express()
 
 // graphql
-setupApolloServer(app).then()
+void setupApolloServer(app)
 
 // static files
 setupStaticFiles(app)
