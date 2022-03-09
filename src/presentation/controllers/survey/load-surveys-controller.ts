@@ -9,6 +9,7 @@ export class LoadSurveysController implements Controller {
     const { accountId } = request
     try {
       const surveys = await this.loadSurveys.load(accountId)
+      console.log('surveys', surveys)
       return surveys.length ? ok(surveys) : noContent()
     } catch (error) {
       return serverError(error)
