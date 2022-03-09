@@ -6,6 +6,6 @@ export default {
     login: async (parent: any, args: any) => adaptResolver(makeLoginController(), args)
   },
   Mutation: {
-    signup: async (parent: any, args: any) => adaptResolver(makeSignUpController(), args)
+    signUp: async (parent: any, args: any) => adaptResolver(makeSignUpController(), args)
   }
 }
