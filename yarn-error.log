@@ -1,5 +1,5 @@
 Arguments: 
-  /Users/matheusalexandre/.nvm/versions/node/v16.13.1/bin/node /Users/matheusalexandre/.nvm/versions/node/v16.13.1/bin/yarn add -D @types/apollo-server-express
+  /Users/matheusalexandre/.nvm/versions/node/v16.13.1/bin/node /Users/matheusalexandre/.nvm/versions/node/v16.13.1/bin/yarn add -D apolo-server-integration-testing
 
 PATH: 
   /Users/matheusalexandre/.nvm/versions/node/v16.13.1/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fapollo-server-express: Not found
+  Error: https://registry.yarnpkg.com/apolo-server-integration-testing: Not found
       at Request.params.callback [as _callback] (/Users/matheusalexandre/.nvm/versions/node/v16.13.1/lib/node_modules/yarn/lib/cli.js:67029:18)
       at Request.self.callback (/Users/matheusalexandre/.nvm/versions/node/v16.13.1/lib/node_modules/yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
@@ -92,6 +92,8 @@ npm manifest:
       "typescript": "^4.5.5"
     },
     "dependencies": {
+      "@graphql-tools/schema": "^8.3.2",
+      "@graphql-tools/utils": "^8.6.2",
       "apollo-server-express": "^3.6.3",
       "bcrypt": "^5.0.1",
       "express": "^4.17.3",
