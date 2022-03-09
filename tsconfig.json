@@ -10,7 +10,8 @@
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
-    }
+    },
+    "skipLibCheck": true
   },
   "include": ["src", "tests"],
   "exclude": []

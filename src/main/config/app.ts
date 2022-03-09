@@ -1,10 +1,14 @@
 import setupMiddlewares from './middlewares'
+import setupApolloServer from './apollo-server'
 import setupRoutes from './routes'
-import setupSwagger from './config-swagger'
+import setupSwagger from './swagger'
 import setupStaticFiles from './static-files'
 import express from 'express'
 
 const app = express()
+
+// graphql
+setupApolloServer(app).then()
 
 // static files
 setupStaticFiles(app)
